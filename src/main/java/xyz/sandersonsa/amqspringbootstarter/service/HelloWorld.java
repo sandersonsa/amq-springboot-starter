@@ -5,22 +5,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Component;
 
-@EnableJms
-// @SpringBootApplication
-public class HelloWorld implements CommandLineRunner {
+@Component
+public class HelloWorld {
 
     @Autowired
     private JmsTemplate jmsTemplate;
 
-    public static void main(String[] args) {
-        SpringApplication.run(HelloWorld.class, args);
-    }
+    // public static void main(String[] args) {
+    //     SpringApplication.run(HelloWorld.class, args);
+    // }
 
-    @Override
-    public void run(String... strings) throws Exception {
-        sendMessage("Hello World!");
-    }
+    // @Override
+    // public void run(String... strings) throws Exception {
+    //     sendMessage("Hello World!");
+    // }
 
     public void sendMessage(String text) {
         System.out.println(String.format("Sending '%s'", text));
