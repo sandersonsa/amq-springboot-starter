@@ -11,8 +11,12 @@ import org.springframework.jms.core.JmsTemplate;
 @EnableJms
 @SpringBootApplication
 public class AmqSpringbootStarterApplication implements CommandLineRunner {
+    
     @Autowired
     private JmsTemplate jmsTemplate;
+
+    @Value("${app.springboot.queue}")
+    private String destination;
 
     public static void main(String[] args) {
         SpringApplication.run(AmqSpringbootStarterApplication.class, args);
@@ -25,19 +29,11 @@ public class AmqSpringbootStarterApplication implements CommandLineRunner {
 
     public void sendMessage(String text) {
         System.out.println(String.format(" ## Sending '%s'", text));
-        this.jmsTemplate.convertAndSend("example::example", text);
+        this.jmsTemplate.convertAndSend(destination, text);
     }
 
-    @JmsListener(destination = "example::example")
+    @JmsListener(destination = destination)
     public void receiveMessage(String text) {
         System.out.println(String.format(" ## Received '%s'", text));
     }
 }
-
-// public class AmqSpringbootStarterApplication {
-
-// 	public static void main(String[] args) {
-// 		SpringApplication.run(AmqSpringbootStarterApplication.class, args);
-// 	}
-
-// }
