@@ -24,13 +24,13 @@ public class AmqSpringbootStarterApplication implements CommandLineRunner {
     }
 
     public void sendMessage(String text) {
-        System.out.println(String.format("Sending '%s'", text));
-        this.jmsTemplate.convertAndSend("example", text);
+        System.out.println(String.format(" ## Sending '%s'", text));
+        this.jmsTemplate.convertAndSend("example::example", text);
     }
 
-    @JmsListener(destination = "example")
+    @JmsListener(destination = "example::example")
     public void receiveMessage(String text) {
-        System.out.println(String.format("Received '%s'", text));
+        System.out.println(String.format(" ## Received '%s'", text));
     }
 }
 
