@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 @EnableJms
 @SpringBootApplication
@@ -32,7 +33,7 @@ public class AmqSpringbootStarterApplication implements CommandLineRunner {
         this.jmsTemplate.convertAndSend(destination, text);
     }
 
-    @JmsListener(destination = destination)
+    @JmsListener(destination = "${app.springboot.queue}")
     public void receiveMessage(String text) {
         System.out.println(String.format(" ## Received '%s'", text));
     }
